@@ -15,6 +15,7 @@ export default function VideoPlayer({ src, className, index }: VideoPlayerProps)
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const blobUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -29,12 +30,13 @@ export default function VideoPlayer({ src, className, index }: VideoPlayerProps)
       // For immediate playback, we might just set the src.
       // But let's try the cache strategy requested.
       try {
-         const blobUrl = await cacheVideo(src);
-         if (active) {
-            setVideoSrc(blobUrl);
-         }
-      } catch (e) {
-         if (active) setVideoSrc(src);
+        const blobUrl = await cacheVideo(src);
+        if (active) {
+          blobUrlRef.current = blobUrl;
+          setVideoSrc(blobUrl);
+        }
+      } catch {
+        if (active) setVideoSrc(src);
       }
     };
 
@@ -42,8 +44,9 @@ export default function VideoPlayer({ src, className, index }: VideoPlayerProps)
 
     return () => {
       active = false;
-      if (videoSrc && videoSrc.startsWith('blob:')) {
-        URL.revokeObjectURL(videoSrc);
+      if (blobUrlRef.current && blobUrlRef.current.startsWith('blob:')) {
+        URL.revokeObjectURL(blobUrlRef.current);
+        blobUrlRef.current = null;
       }
     };
   }, [src]);
