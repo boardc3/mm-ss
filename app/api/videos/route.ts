@@ -20,9 +20,9 @@ export async function GET() {
         return ['.mp4', '.webm', '.mov'].includes(ext);
       })
       .sort((a, b) => {
-        // 'elevate-0.1.mp4' always comes first
-        if (a === 'elevate-0.1.mp4') return -1;
-        if (b === 'elevate-0.1.mp4') return 1;
+        // 'elevate-0.2.mp4' always comes first
+        if (a === 'elevate-0.2.mp4') return -1;
+        if (b === 'elevate-0.2.mp4') return 1;
         // The rest are sorted alphabetically
         return a.localeCompare(b);
       })
