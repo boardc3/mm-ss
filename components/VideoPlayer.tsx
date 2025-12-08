@@ -73,6 +73,7 @@ export default function VideoPlayer({ src, className, index }: VideoPlayerProps)
           muted
           loop
           playsInline
+          controls
           onLoadedData={() => setIsLoaded(true)}
         />
       )}
