@@ -60,9 +60,9 @@ export default function Home() {
             <p className="text-sm">Add videos to the <code className="bg-white/10 px-2 py-1 rounded">public/videos</code> folder.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="flex flex-col gap-8">
             {videos.map((src, index) => (
-              <VideoPlayer key={src} src={src} index={index} />
+              <VideoPlayer key={src} src={src} index={index} className="w-full" />
             ))}
           </div>
         )}
