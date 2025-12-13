@@ -14,30 +14,16 @@ export async function GET() {
     const files = fs.readdirSync(videosDirectory);
     
     // Filter for video files (basic extension check)
-    const priorityOrder = [
-      'elevate-0.7.mp4',
-      'LaMirada-9.12.mp4',
-      '03.mp4',
-      'Highst.mp4',
-      'Jasmine.mp4',
-    ];
-
     const videos = files
       .filter(file => {
         const ext = path.extname(file).toLowerCase();
         return ['.mp4', '.webm', '.mov'].includes(ext);
       })
       .sort((a, b) => {
-        const aIndex = priorityOrder.indexOf(a);
-        const bIndex = priorityOrder.indexOf(b);
-
-        const aPriority = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
-        const bPriority = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
-
-        if (aPriority !== bPriority) {
-          return aPriority - bPriority;
-        }
-
+        // 'elevate-0.1.mp4' always comes first
+        if (a === 'elevate-0.1.mp4') return -1;
+        if (b === 'elevate-0.1.mp4') return 1;
+        // The rest are sorted alphabetically
         return a.localeCompare(b);
       })
       .map(file => `/videos/${file}`);

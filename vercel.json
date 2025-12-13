@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/sceneset-elevate-miami/$1"
+    }
+  ]
+}
+
+

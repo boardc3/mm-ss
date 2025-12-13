@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import VideoPlayer from '@/components/VideoPlayer';
+import LocalAmenities from '@/components/LocalAmenities';
 import { motion } from 'framer-motion';
 
 export default function Home() {
@@ -67,6 +68,8 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <LocalAmenities />
 
       <footer className="py-10 border-t border-white/10 text-center text-white/30 text-sm">
         <div className="flex flex-col items-center gap-2">
